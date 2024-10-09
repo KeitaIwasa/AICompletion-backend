@@ -47,3 +47,5 @@ jest.config.js
 
 # ビルド結果
 /build/
+
+*app.yaml
