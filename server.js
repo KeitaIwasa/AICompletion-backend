@@ -25,7 +25,7 @@ app.post('/api/predict', async (req, res) => {
   }
 
   try {
-    const completion = await openai.chat.completions.create({
+    let completion = await openai.chat.completions.create({
         model: "gpt-4o-mini",
         messages: [
             {"role": "system", "content": "Output the rest of the sentence, but NOT more than one sentence out of sequence."},
@@ -33,7 +33,24 @@ app.post('/api/predict', async (req, res) => {
         ],
     });
 
-    const prediction = completion.choices[0].message.content;
+    let prediction = completion.choices[0].message.content;
+    console.log('gpt-4o-mini:', prediction);
+
+    // `text`の中に`prediction`と完全一致する部分があるかチェック
+    if (text.includes(prediction)) {
+      // モデルを"gpt-40"に変更して再試行
+      completion = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          { "role": "system", "content": "Output the rest of the sentence, but NOT more than one sentence out of sequence." },
+          { "role": "user", "content": text },
+        ],
+      });
+
+      prediction = completion.choices[0].message.content;
+      console.log('gpt-40:', prediction);
+    }
+
     res.json({ prediction });
   } catch (error) {
     console.error('Error with OpenAI API:', error.message);
