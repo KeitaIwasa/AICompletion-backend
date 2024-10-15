@@ -15,3 +15,13 @@
 ## 使用方法
 以下のリンクにアクセスしてください。
 https://ai-completion2.vercel.app/
+
+## フロントエンド
+- **React**：フロントエンドのUI構築に使用。useState, useEffect, useCallback, useRef などのフックを使用しています。
+- **Lucide Icons**：Reactコンポーネントとして使用できるアイコンライブラリ。RefreshCw, Copy, Check, Loaderなどのアイコンを使用しています。
+- **CSS3**：アニメーションやボタンのホバー効果をCSSで実装しています。リトライボタンの一回転アニメーションなども、CSSで管理しています。
+
+## バックエンド
+**OpenAI API**：AIによる文章補完のためにバックエンドにリクエストを送信し、入力されたテキストの続きとなる文章をリアルタイムで生成します。フロントエンドから以下のエンドポイントに入力テキストをPOSTしています。
+https://aicomletion.de.r.appspot.com/api/predict
+このエンドポイントに対して、ユーザーの入力をPOSTし、さらにOpenAI APIに入力テキストをPOSTすることで予測結果を取得します。
